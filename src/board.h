@@ -5,6 +5,7 @@
 #include <string>
 
 class board {
+public:
   std::array<piece, 64> b;
   board(std::string & fen);
   std::string & str();
