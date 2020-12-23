@@ -1,5 +1,6 @@
 #include "board.h"
 
+//TODO refactor with custom iterator
 board::board(std::string & fen){
   unsigned short count = 56;
   for(char c: fen){
@@ -11,9 +12,23 @@ board::board(std::string & fen){
 	count++;
       }
     }
-    if(count >> 3)
+    if(count % 8 == 0){
       if(count == 8)
 	break;
       count -= 16;
+    }
   }
+}
+
+std::string board::str(){
+  std::string val = "+-+-+-+-+-+-+-+\n";
+  for(int i = 56; i > 0; i++){
+    val = val.append(1, '|');
+    val = val.append(1, b[i].sym());
+    if(i % 8 == 7){
+      val = val.append("|\n+-+-+-+-+-+-+-+\n");
+      i -= 15;
+    }
+  }
+  return val;
 }

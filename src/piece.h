@@ -5,7 +5,7 @@
 class piece {
  public:
   std::bitset<4> val;
-  char sym();
+  char sym() const;
   piece(char sym = ' ');
 };
 
