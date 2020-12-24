@@ -3,10 +3,10 @@
 #include <bitset>
 
 class piece {
- public:
-  std::bitset<4> val;
-  char sym() const;
-  piece(char sym = ' ');
+public:
+	std::bitset<4> val;
+	char sym() const;
+	explicit piece(char sym = ' ');
 };
 
 #endif
