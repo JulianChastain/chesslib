@@ -1,7 +1,9 @@
 * Requirements
-** Atomic Object
+** Atomic Objects
 *** peice
 *** Square
+    A location object, capabable of initializing from an algebraic notation string and
+    deferencing to a linear index on a board object
 ** board
 A 2d vector of 64 pieces, each element can be access by entering a square
 *** board(sting & fen | fen)
@@ -25,7 +27,7 @@ A 2d vector of 64 pieces, each element can be access by entering a square
     |---+----+----+----+----+----+----+----+----|
     | 1 |  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |
 ** move
-A peice and square pair, can also contain the origin square, promotion information, checks, or mate.
+A piece and square pair, can also contain the origin square, promotion information, checks, or mate.
 ** game
 A list of moves, either from the standard starting position, or from a board
 ** tactic

@@ -16,7 +16,7 @@
 #define bp std::bitset<4>("1111")
 
 std::string print(std::bitset<4> b){
-    return b.to_string();
+  return b.to_string();
 }
 
 piece::piece(char sym){

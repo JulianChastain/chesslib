@@ -11,6 +11,8 @@ public:
 	std::string str();
 };
 
+void update(int & idx);
+
 
 struct boarditer {
     unsigned short idx;
