@@ -3,4 +3,4 @@ cmake_minimum_required(VERSION 3.10)
 project(ChessLib)
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(boardTest boardtest.cpp board.cpp piece.cpp square.cpp)
+add_executable(boardTest boardtest.cpp board.cpp piece.cpp square.cpp move.cpp)

@@ -5,8 +5,11 @@
 class piece {
 public:
 	std::bitset<4> val;
+
 	char sym() const;
+	explicit piece(std::bitset<4> value): val(value){}
 	explicit piece(char sym = ' ');
+	piece pop();
 };
 
 #endif

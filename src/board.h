@@ -1,17 +1,18 @@
 #ifndef BOARD_H_INCLUDED
 #define BOARD_H_INCLUDED
 #include <array>
-#include "piece.h"
 #include <string>
+#include "piece.h"
+#include "move.h"
 
 class board {
 public:
 	std::array<piece, 64> b;
 	explicit board(std::string & fen);
 	std::string str();
+	void basic_move(move m);
 };
 
-void update(int & idx);
 
 
 struct boarditer {

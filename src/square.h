@@ -4,6 +4,6 @@
 
 struct square {
     unsigned short idx;
-    square(std::string s, bool algebraic = true);
+    explicit square(std::string s = "a1", bool algebraic = true);
 };
 #endif

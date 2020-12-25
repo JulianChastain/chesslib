@@ -1,5 +1,9 @@
 #include "board.h"
 
+void board::basic_move(move m) {
+    b[m.destination.idx] = b[m.origin.idx].pop();
+}
+
 void boarditer::update(){
     row = false;
     if(idx % 8 == 0) {

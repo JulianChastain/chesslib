@@ -15,6 +15,12 @@
 #define bn std::bitset<4>("1011")
 #define bp std::bitset<4>("1111")
 
+piece piece::pop(){
+    piece v(val);
+    val.reset();
+    return v;
+}
+
 std::string print(std::bitset<4> b){
   return b.to_string();
 }

@@ -1,31 +1,32 @@
 #include <iostream>
+
 #include "board.h"
 #include "square.h"
-#include <assert.h>
+#include <cassert>
+
+void basic_test_suite(board & b){
+    std::string comp = "+-+-+-+-+-+-+-+-+\n|r|n|b|q|k|b|n|r|\n+-+-+-+-+-+-+-+-+\n|p|p|p|p|p|p|p|p|\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n|P|P|P|P|P|P|P|P|\n+-+-+-+-+-+-+-+-+\n|R|N|B|Q|K|B|N|R|\n+-+-+-+-+-+-+-+-+\n";
+    assert(b.str() == comp);
+    square zero("a1");
+    square thirteen("f2");
+    square twentysix("c4");
+    square fiftyeight("c8");
+    square sixtythree("h8");
+    assert(zero.idx == 0);
+    assert(thirteen.idx == 13);
+    assert(twentysix.idx == 26);
+    assert(fiftyeight.idx == 58);
+    assert(sixtythree.idx == 63);
+}
 
 int main(){
 	std::string pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 	board b(pos);
-
-//    for(boarditer b; !b.done; ++b){
-//        if(b.row)
-//            std::cout << std::endl;
-//        std::cout << b.idx << "\t";
-//    }
-	std::string comp = "+-+-+-+-+-+-+-+-+\n|r|n|b|q|k|b|n|r|\n+-+-+-+-+-+-+-+-+\n|p|p|p|p|p|p|p|p|\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n|P|P|P|P|P|P|P|P|\n+-+-+-+-+-+-+-+-+\n|R|N|B|Q|K|B|N|R|\n+-+-+-+-+-+-+-+-+\n";
-//	std::cout << comp;
-//	std::cout << b.str();
-	assert(b.str() == comp);
-	square zero("a1");
-	square thirteen("f2");
-	square twentysix("c4");
-	square fiftyeight("c8");
-	square sixtythree("h8");
-	assert(zero.idx == 0);
-	assert(thirteen.idx == 13);
-	assert(twentysix.idx == 26);
-	assert(fiftyeight.idx == 58);
-	assert(sixtythree.idx == 63);
-	
-	return 0;
+	basic_test_suite(b);
+	std::string m;
+	while(true){
+	    std::cout << b.str();
+	    std::cin >> m;
+	    b.basic_move(move(m));
+	}
 }
