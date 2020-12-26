@@ -1,8 +1,6 @@
 #include <iostream>
-
-#include "board.h"
-#include "square.h"
 #include <cassert>
+#include "../src/includes/structures.h"
 
 void basic_test_suite(board & b){
     std::string comp = "+-+-+-+-+-+-+-+-+\n|r|n|b|q|k|b|n|r|\n+-+-+-+-+-+-+-+-+\n|p|p|p|p|p|p|p|p|\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n| | | | | | | | |\n+-+-+-+-+-+-+-+-+\n|P|P|P|P|P|P|P|P|\n+-+-+-+-+-+-+-+-+\n|R|N|B|Q|K|B|N|R|\n+-+-+-+-+-+-+-+-+\n";
@@ -23,10 +21,4 @@ int main(){
 	std::string pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 	board b(pos);
 	basic_test_suite(b);
-	std::string m;
-	while(true){
-	    std::cout << b.str();
-	    std::cin >> m;
-	    b.basic_move(move(m));
-	}
 }
