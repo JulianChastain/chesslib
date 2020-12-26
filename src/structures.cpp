@@ -1,7 +1,6 @@
 //
 // Created by Julian Chastain on 12/25/2020.
 //
-
 #include <unordered_map>
 #include "includes/structures.h"
 #define EMPTY std::bitset<4>("0000")
@@ -23,10 +22,6 @@ piece piece::pop(){
     piece v(val);
     val.reset();
     return v;
-}
-
-std::string print(std::bitset<4> b){
-    return b.to_string();
 }
 
 piece::piece(char sym){
@@ -77,7 +72,6 @@ piece::piece(char sym){
     }
 }
 
-
 char piece::sym() const{
     static const std::unordered_map<std::bitset<4>, char> table = {
             {wk, 'K'},
@@ -98,20 +92,42 @@ char piece::sym() const{
     return table.at(val);
 }
 
-
-square::square(std::string s, bool algebraic): idx(0){
-    if(algebraic)
-        idx = (s[1] - '1') * 8 + (s[0] - 'a');
+bool piece::operator==(const piece &other) const {
+    return val == val;
 }
 
-move::move(std::string & m, bool long_algebraic){
+bool piece::operator==(const char other) const {
+    return other == sym();
+}
+
+square::square(std::string s): idx(0){
+    idx = (s[1] - '1') * 8 + (s[0] - 'a');
+}
+
+auto square::operator<=>(const square other) const{
+    if(idx > other.idx)
+        return std::strong_ordering::greater;
+    if(idx < other.idx)
+        return std::strong_ordering::less;
+    return std::strong_ordering::equal;
+}
+
+move::move(std::string m){
     origin = square(m.substr(0,2));
     destination = square(m.substr(2,4));
+    if(m.size() == 5)
+        promotion = m[4];
+    else
+        promotion = EMPTY;
 }
 
+bool move::operator==(const move &other) const {
+    return origin == other.origin && destination == other.destination && promotion == other.promotion;
+}
 
 void board::basic_move(move m) {
-    b[m.destination.idx] = b[m.origin.idx].pop();
+    piece temp = b[m.origin.idx].pop();
+    b[m.destination.idx] = (m.promotion == ' ') ? temp : m.promotion;
 }
 
 void boarditer::update(){
@@ -148,7 +164,7 @@ std::string board::str(){
     return val;
 }
 
-board::board(std::string fen) {
+board::board(const std::string& fen) {
     boarditer i;
     for(char c: fen){
         if(c != '/'){
