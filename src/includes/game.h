@@ -6,7 +6,7 @@
 #define CHESSLIB_GAME_H
 #include <list>
 #include <vector>
-#include "includes/structures.h"
+#include "structures.h"
 
 
 class game {
@@ -20,16 +20,18 @@ public:
 template <class t>
 class moveNode {
 public:
-    std::vector<t> nextMoves;
+    std::vector<moveNode> nextMoves;
     short count;
+    move val;
     moveNode();
-    void add(t it);
+    moveNode(t begin, t end);
+    void add(t begin, t end);
 };
 
 class gameCombinator {
     moveNode<std::_List_iterator<move>> root;
-    gameCombinator(game g);
     void add(game g);
+    std::string openingRepertoire();
 };
 
 

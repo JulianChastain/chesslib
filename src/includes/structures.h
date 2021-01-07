@@ -15,7 +15,8 @@ struct square {
      * Post: idx = the square represented by s
      */
     explicit square(std::string s = "a1");
-    bool operator<=>(square other) const = default;
+    auto operator<=>(const square & other) const;
+    bool operator==(const square & other) const = default;
 };
 
 class piece {
@@ -53,6 +54,7 @@ public:
     /*
      * Pre: The squares referenced bym are valid squares on the board
      * Post: destination square = m.pop() if m.promotion == empty, else m.promotion
+     *  Also does some baic checking if a omove is en passant
      */
     void basic_move(move m);
 };

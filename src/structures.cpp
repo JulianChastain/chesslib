@@ -104,7 +104,7 @@ square::square(std::string s): idx(0){
     idx = (s[1] - '1') * 8 + (s[0] - 'a');
 }
 
-auto square::operator<=>(const square other) const{
+auto square::operator<=>(const square & other) const{
     if(idx > other.idx)
         return std::strong_ordering::greater;
     if(idx < other.idx)
@@ -126,6 +126,7 @@ bool move::operator==(const move &other) const {
 }
 
 void board::basic_move(move m) {
+//TODO check if the move is an en passant/check to move other pieces
     piece temp = b[m.origin.idx].pop();
     b[m.destination.idx] = (m.promotion == ' ') ? temp : m.promotion;
 }

@@ -20,27 +20,35 @@ board game::positionAfter(short n_plies){
 }
 
 template<class t>
-void moveNode<t>::add(t it){
-    nextMoves.push_back(it);
-    count++;
+void moveNode<t>::add(t begin, t end){
+  count++;
+  auto it = find_if(nextMoves.begin(), nextMoves.end(), [begin](moveNode x){return x.val == *begin;});
+  if(it != nextMoves.end()){
+    it -> add(++begin, end);
+  }
 }
 
 template<class t>
-moveNode<t>::moveNode(): count(0){
-    nextMoves.clear();
+moveNode<t>::moveNode(): count(0) {
+  nextMoves.clear();
+  val = move("e2e4");
 }
 
-gameCombinator::gameCombinator(game g){
-    root.add(g.moves.begin());
+template<class t>
+moveNode<t>::moveNode(t begin, t end): count(0){
+  if(begin == end)
+    count = 0;
+  else{
+    count = 1;
+    val = *begin;
+    nextMoves.push_back(moveNode(begin++, end));
+  }
+
 }
 
 void gameCombinator::add(game g){
-    auto curNode = root;
-    auto moves_iter = g.moves.begin();
-    for(auto idx = std::find_if(curNode.nextMoves.begin(), curNode.nextMoves.end(), [moves_iter](auto idx){return *moves_iter == *idx;}); idx != curNode.nextMoves.end(); idx = std::find_if(curNode.nextMoves.begin(), curNode.nextMoves.end(), [moves_iter](auto idx){return *moves_iter == *idx;})){
-        curNode.count++;
+  root.add(g.moves.begin(), g.moves.end());
+}
 
-        moves_iter++;
-    }
-    curNode.add(moves_iter);
+std::string gameCombinator::openingRepertoire(){
 }
