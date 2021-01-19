@@ -26,6 +26,9 @@ public:
     piece(std::bitset<4> value): val(value){} //Post: value is stored as val
     piece(char sym = ' '); //pre: sym = (K|Q|B|N|P| ) post: val stores that piece
     piece pop(); //post: val = 0000 [empty] and pop = val
+    explicit operator bool() const{
+        return sym() == ' ';
+    };
     bool operator==(const piece & other) const;
     bool operator==(char other) const;
 };

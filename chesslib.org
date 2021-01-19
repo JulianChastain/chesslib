@@ -5,7 +5,7 @@
     A location object, capable of initializing from an algebraic notation string and
     dereferencing to a linear index on a board object
 ** board
-A 2d vector of 64 pieces, each element can be access by entering a square
+   A 2d vector of 64 pieces, each element can be access by entering a square
 *** board(sting & fen | fen)
 *** string & str()
 *** Illustration

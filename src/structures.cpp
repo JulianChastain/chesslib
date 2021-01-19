@@ -126,9 +126,26 @@ bool move::operator==(const move &other) const {
 }
 
 void board::basic_move(move m) {
-//TODO check if the move is an en passant/check to move other pieces
+    unsigned short diff = abs(m.origin.idx - m.destination.idx);
+if((diff == 7 || diff == 9) && !b[m.destination.idx] && (b[m.origin.idx] == 'P' || b[m.origin.idx] == 'p')){
+      if(m.destination.idx >= 48 && m.destination.idx <= 55)
+	b[m.destination.idx - 8] = ' ';
+      if(m.destination.idx >= 8 && m.destination.idx <= 15)
+	b[m.destination.idx + 8] = ' ';
+    }
+ else if(diff == 2 && (b[m.origin.idx] == 'K' || b[m.origin.idx] == 'k')){
+        if(m.destination.idx > m.origin.idx){
+	    b[m.destination.idx - 1] = b[m.destination.idx + 1].pop(); // move the rook
+            b[m.destination.idx] = b[m.origin.idx].pop(); //move the king
+	} else {
+	    b[m.destination.idx + 1] = b[m.destination.idx - 2].pop();
+            b[m.destination.idx] = b[m.origin.idx].pop();
+	}
+    }
+ else {
     piece temp = b[m.origin.idx].pop();
     b[m.destination.idx] = (m.promotion == ' ') ? temp : m.promotion;
+ }
 }
 
 void boarditer::update(){

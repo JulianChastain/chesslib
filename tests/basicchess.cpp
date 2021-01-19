@@ -10,9 +10,15 @@ int main(){
     board b(pos);
     std::string m;
     while(true){
-        std::cout << b.str();
         std::cin >> m;
-        b.basic_move(move(m));
+	if(m == "q" || std::cin.eof())
+	  break;
+	else if (m == "p")
+	  std::cout << b.str();
+	else
+	    b.basic_move(move(m));
     }
+    std::cout << b.str();
+    return 0;
 }
 
