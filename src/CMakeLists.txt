@@ -8,4 +8,5 @@ if ( CMAKE_COMPILER_IS_GNUCC )
 endif()
 
 add_executable(testStructures ../tests/testStructures.cpp structures.cpp)
-add_executable(basicChess ../tests/basicchess.cpp game.cpp includes/game.h structures.cpp)
+add_executable(basicChess ../tests/basicchess.cpp game.cpp game.h structures.cpp)
+add_executable(stockfishcli game.cpp structures.cpp ../applications/stockfishWrapper.cpp)

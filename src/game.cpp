@@ -1,7 +1,7 @@
 // Created by Julian Chastain on 12/24/2020.
 #include <sstream>
 #include <algorithm>
-#include "includes/game.h"
+#include "game.h"
 
 game::game(std::string & pgn, board starter): start(starter){
 		std::istringstream ss(pgn);

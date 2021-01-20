@@ -15,6 +15,7 @@ struct square {
 	 * Post: idx = the square represented by s
 	 */
 	explicit square(std::string s = "a1");
+	[[nodiscard]] std::string algebraic() const;
 	auto operator<=>(const square & other) const;
 	bool operator==(const square & other) const = default;
 };
@@ -22,13 +23,10 @@ struct square {
 class piece {
 public:
 	std::bitset<4> val;
-	char sym() const; //Post: sym = the char that represents the piece stored by val
+	[[nodiscard]] char sym() const; //Post: sym = the char that represents the piece stored by val
 	piece(std::bitset<4> value): val(value){} //Post: value is stored as val
 	piece(char sym = ' '); //pre: sym = (K|Q|B|N|P| ) post: val stores that piece
 	piece pop(); //post: val = 0000 [empty] and pop = val
-	explicit operator bool() const{
-		return sym() == ' ';
-	};
 	bool operator==(const piece & other) const;
 	bool operator==(char other) const;
 };
@@ -41,6 +39,7 @@ struct move {
 	 * Post: The origin and destination are set based on the value of m
 	 */
 	explicit move(std::string m);
+	[[nodiscard]] std::string notation() const;
 	//Post: true iff origin == other.origin && destination == other.destination && promotion = other.promotion
 	bool operator==(const move & other) const;
 };

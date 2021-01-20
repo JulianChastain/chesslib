@@ -2,7 +2,7 @@
 // Created by Julian Chastain on 12/25/2020.
 //
 #include <unordered_map>
-#include "includes/structures.h"
+#include "structures.h"
 #define EMPTY std::bitset<4>("0000")
 #define wk std::bitset<4>("1000")
 #define wq std::bitset<4>("0100")
@@ -125,16 +125,26 @@ bool move::operator==(const move &other) const {
 	return origin == other.origin && destination == other.destination && promotion == other.promotion;
 }
 
+std::string square::algebraic() const {
+    std::string row(1, '1' + (idx / 8));
+    std::string col(1, 'a' + idx % 8);
+    return col + row;
+}
+
+std::string move::notation() const {
+    return origin.algebraic() + destination.algebraic();
+}
+
 void board::basic_move(move m) {
 	unsigned short diff = abs(m.origin.idx - m.destination.idx);
-	if((diff == 7 || diff == 9) && !b[m.destination.idx] && (b[m.origin.idx] == 'P' || b[m.origin.idx] == 'p')){
+	if((diff == 7 || diff == 9) && b[m.destination.idx].sym() == ' ' && (b[m.origin.idx].sym() == 'P' || b[m.origin.idx].sym() == 'p')){
 		//En Passant
 		if(m.destination.idx >= 40 && m.destination.idx <= 47)
 			b[m.destination.idx - 8].pop();
 		if(m.destination.idx >= 16 && m.destination.idx <= 23)
 			b[m.destination.idx + 8].pop();
 		b[m.destination.idx] = b[m.origin.idx].pop();
-	} else if(diff == 2 && (b[m.origin.idx] == 'K' || b[m.origin.idx] == 'k')){ //Castling
+    } else if(diff == 2 && (b[m.origin.idx] == 'K' || b[m.origin.idx] == 'k')){ //Castling
 		if(m.destination.idx > m.origin.idx){
 			b[m.destination.idx - 1] = b[m.destination.idx + 1].pop(); // move the rook
 			b[m.destination.idx] = b[m.origin.idx].pop(); //move the king

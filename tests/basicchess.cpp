@@ -5,13 +5,13 @@
 // Created by Julian Chastain on 12/24/2020.
 //
 #include <cassert>
-#include "../src/includes/structures.h"
+#include "../src/structures.h"
 
 const std::vector<std::string> basic_moves = {"e2e4", "f1d3", "g1h3", "e1g1", "e4e5", "f7f5", "e5f6"};
 const std::string pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-std::string final_position(std::vector<std::string> moves){
+std::string final_position(const std::vector<std::string>& moves){
 	board b(pos);
-	for(std::string s: moves)
+	for(const std::string& s: moves)
 		b.basic_move(move(s));
 	return b.str();
 }
@@ -44,7 +44,7 @@ int main(int argc, char ** argv){
 					"|P|P|P|P| |P|P|P|\n"
 					"+-+-+-+-+-+-+-+-+\n"
 					"|R|N|B|Q| |R|K| |\n"
-					"+-+-+-+-+-+-+-+-+");
+					"+-+-+-+-+-+-+-+-+\n");
 
 	if(argc > 0 && argv[1][0] == 'g')
 		basicGame();
