@@ -1,6 +1,4 @@
 // Created by Julian Chastain on 12/24/2020.
-// game.cpp
-
 #include <sstream>
 #include <algorithm>
 #include "includes/game.h"
@@ -15,8 +13,8 @@ game::game(std::string & pgn, board starter): start(starter){
 board game::positionAfter(short n_plies){
 		board temp(start);
 		for(auto it = moves.begin(); std::distance(moves.begin(), it) < n_plies; it++)
-			temp.basic_move(*it);
-		return temp
+				temp.basic_move(*it);
+		return temp;
 }
 
 template<class t>
@@ -51,5 +49,6 @@ void gameCombinator::add(game g){
 }
 
 std::string gameCombinator::openingRepertoire(){
-	return std::string("hello world");
+		//TODO add code here
+		return std::string("stub");
 }

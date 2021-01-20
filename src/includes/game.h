@@ -11,27 +11,27 @@
 
 class game {
 public:
-    std::list<move> moves;
-    board start;
-    game(std::string & pgn, board starter = std::string("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"));
-    board positionAfter(short n_plies);
+	std::list<move> moves;
+	board start;
+	game(std::string & pgn, board starter = std::string("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"));
+	board positionAfter(short n_plies);
 };
 
 template <class t>
 class moveNode {
 public:
-    std::vector<moveNode> nextMoves;
-    short count;
-    move val;
-    moveNode();
-    moveNode(t begin, t end);
-    void add(t begin, t end);
+	std::vector<moveNode> nextMoves;
+	short count;
+	move val;
+	moveNode();
+	moveNode(t begin, t end);
+	void add(t begin, t end);
 };
 
 class gameCombinator {
-    moveNode<std::_List_iterator<move>> root;
-    void add(game g);
-    std::string openingRepertoire();
+	moveNode<std::_List_iterator<move>> root;
+	void add(game g);
+	std::string openingRepertoire();
 };
 
 

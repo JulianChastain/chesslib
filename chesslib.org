@@ -1,3 +1,14 @@
+* File Index
+** tests
+*** [[file:tests/basicchess.cpp][basicchess]]
+*** [[file:tests/testStructures.cpp][testStructures]]
+** src
+*** [[file:src/CMakeLists.txt][cmakelists]]
+*** [[file:src/game.cpp][game]]
+    [[file:src/includes/game.h][header]]
+*** [[file:src/structures.cpp][structures]]
+    [[src/includes/structures.h][header]]
+
 * Requirements
 ** Atomic Objects
 *** piece

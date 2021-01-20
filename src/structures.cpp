@@ -19,181 +19,182 @@
 #define bp std::bitset<4>("1111")
 
 piece piece::pop(){
-    piece v(val);
-    val.reset();
-    return v;
+	piece v(val);
+	val.reset();
+	return v;
 }
 
 piece::piece(char sym){
-    switch (sym) {
-        case ' ':
-            val = EMPTY;
-            break;
-        case 'K':
-            val = wk;
-            break;
-        case 'Q':
-            val = wq;
-            break;
-        case 'R':
-            val = wr;
-            break;
-        case 'B':
-            val = wb;
-            break;
-        case 'N':
-            val = wn;
-            break;
-        case 'P':
-            val = wp;
-            break;
-        case 'k':
-            val = bk;
-            break;
-        case 'q':
-            val = bq;
-            break;
-        case 'r':
-            val = br;
-            break;
-        case 'b':
-            val = bb;
-            break;
-        case 'n':
-            val = bn;
-            break;
-        case 'p':
-            val = bp;
-            break;
-        default:
-        case '\0':
-            val = invalid;
-            break;
-    }
+	switch (sym) {
+		case ' ':
+			val = EMPTY;
+			break;
+		case 'K':
+			val = wk;
+			break;
+		case 'Q':
+			val = wq;
+			break;
+		case 'R':
+			val = wr;
+			break;
+		case 'B':
+			val = wb;
+			break;
+		case 'N':
+			val = wn;
+			break;
+		case 'P':
+			val = wp;
+			break;
+		case 'k':
+			val = bk;
+			break;
+		case 'q':
+			val = bq;
+			break;
+		case 'r':
+			val = br;
+			break;
+		case 'b':
+			val = bb;
+			break;
+		case 'n':
+			val = bn;
+			break;
+		case 'p':
+			val = bp;
+			break;
+		default:
+		case '\0':
+			val = invalid;
+			break;
+	}
 }
 
 char piece::sym() const{
-    static const std::unordered_map<std::bitset<4>, char> table = {
-            {wk, 'K'},
-            {wq, 'Q'},
-            {wr, 'R'},
-            {wb, 'B'},
-            {wn, 'N'},
-            {wp, 'P'},
-            {bk, 'k'},
-            {bq, 'q'},
-            {br, 'r'},
-            {bb, 'b'},
-            {bn, 'n'},
-            {bp, 'p'},
-            {EMPTY, ' '},
-            {invalid, '\0'}
-    };
-    return table.at(val);
+	static const std::unordered_map<std::bitset<4>, char> table = {
+			{wk, 'K'},
+			{wq, 'Q'},
+			{wr, 'R'},
+			{wb, 'B'},
+			{wn, 'N'},
+			{wp, 'P'},
+			{bk, 'k'},
+			{bq, 'q'},
+			{br, 'r'},
+			{bb, 'b'},
+			{bn, 'n'},
+			{bp, 'p'},
+			{EMPTY, ' '},
+			{invalid, '\0'}
+	};
+	return table.at(val);
 }
 
 bool piece::operator==(const piece &other) const {
-    return val == val;
+	return val == other.val;
 }
 
 bool piece::operator==(const char other) const {
-    return other == sym();
+	return other == sym();
 }
 
 square::square(std::string s): idx(0){
-    idx = (s[1] - '1') * 8 + (s[0] - 'a');
+	idx = (s[1] - '1') * 8 + (s[0] - 'a');
 }
 
 auto square::operator<=>(const square & other) const{
-    if(idx > other.idx)
-        return std::strong_ordering::greater;
-    if(idx < other.idx)
-        return std::strong_ordering::less;
-    return std::strong_ordering::equal;
+	if(idx > other.idx)
+		return std::strong_ordering::greater;
+	if(idx < other.idx)
+		return std::strong_ordering::less;
+	return std::strong_ordering::equal;
 }
 
 move::move(std::string m){
-    origin = square(m.substr(0,2));
-    destination = square(m.substr(2,4));
-    if(m.size() == 5)
-        promotion = m[4];
-    else
-        promotion = EMPTY;
+	origin = square(m.substr(0,2));
+	destination = square(m.substr(2,4));
+	if(m.size() == 5)
+		promotion = m[4];
+	else
+		promotion = EMPTY;
 }
 
 bool move::operator==(const move &other) const {
-    return origin == other.origin && destination == other.destination && promotion == other.promotion;
+	return origin == other.origin && destination == other.destination && promotion == other.promotion;
 }
 
 void board::basic_move(move m) {
-    unsigned short diff = abs(m.origin.idx - m.destination.idx);
-if((diff == 7 || diff == 9) && !b[m.destination.idx] && (b[m.origin.idx] == 'P' || b[m.origin.idx] == 'p')){
-      if(m.destination.idx >= 48 && m.destination.idx <= 55)
-	b[m.destination.idx - 8] = ' ';
-      if(m.destination.idx >= 8 && m.destination.idx <= 15)
-	b[m.destination.idx + 8] = ' ';
-    }
- else if(diff == 2 && (b[m.origin.idx] == 'K' || b[m.origin.idx] == 'k')){
-        if(m.destination.idx > m.origin.idx){
-	    b[m.destination.idx - 1] = b[m.destination.idx + 1].pop(); // move the rook
-            b[m.destination.idx] = b[m.origin.idx].pop(); //move the king
-	} else {
-	    b[m.destination.idx + 1] = b[m.destination.idx - 2].pop();
-            b[m.destination.idx] = b[m.origin.idx].pop();
+	unsigned short diff = abs(m.origin.idx - m.destination.idx);
+	if((diff == 7 || diff == 9) && !b[m.destination.idx] && (b[m.origin.idx] == 'P' || b[m.origin.idx] == 'p')){
+		//En Passant
+		if(m.destination.idx >= 40 && m.destination.idx <= 47)
+			b[m.destination.idx - 8].pop();
+		if(m.destination.idx >= 16 && m.destination.idx <= 23)
+			b[m.destination.idx + 8].pop();
+		b[m.destination.idx] = b[m.origin.idx].pop();
+	} else if(diff == 2 && (b[m.origin.idx] == 'K' || b[m.origin.idx] == 'k')){ //Castling
+		if(m.destination.idx > m.origin.idx){
+			b[m.destination.idx - 1] = b[m.destination.idx + 1].pop(); // move the rook
+			b[m.destination.idx] = b[m.origin.idx].pop(); //move the king
+		} else {
+			b[m.destination.idx + 1] = b[m.destination.idx - 2].pop();
+			b[m.destination.idx] = b[m.origin.idx].pop();
+		}
 	}
-    }
- else {
-    piece temp = b[m.origin.idx].pop();
-    b[m.destination.idx] = (m.promotion == ' ') ? temp : m.promotion;
- }
+	else {
+		piece temp = b[m.origin.idx].pop();
+		b[m.destination.idx] = (m.promotion == ' ') ? temp : m.promotion;
+	}
 }
 
 void boarditer::update(){
-    row = false;
-    if(idx % 8 == 0) {
-        row = true;
-        if (idx == 8)
-            done = true;
-        idx -= 16;
-    }
+	row = false;
+	if(idx % 8 == 0) {
+		row = true;
+		if (idx == 8)
+			done = true;
+		idx -= 16;
+	}
 }
 
 void boarditer::operator+=(unsigned char c) {
-    idx += c;
-    update();
+	idx += c;
+	update();
 }
 
 boarditer boarditer::operator++() {
-    idx++;
-    update();
-    return *this;
+	idx++;
+	update();
+	return *this;
 }
 
 std::string board::str(){
-    std::string val = "+-+-+-+-+-+-+-+-+\n";
-    boarditer i;
-    while(!i.done){
-        val = val.append(1, '|');
-        val = val.append(1, b[i.idx].sym());
-        ++i;
-        if(i.row)
-            val = val.append("|\n+-+-+-+-+-+-+-+-+\n");
-    }
-    return val;
+	std::string val = "+-+-+-+-+-+-+-+-+\n";
+	boarditer i;
+	while(!i.done){
+		val = val.append(1, '|');
+		val = val.append(1, b[i.idx].sym());
+		++i;
+		if(i.row)
+			val = val.append("|\n+-+-+-+-+-+-+-+-+\n");
+	}
+	return val;
 }
 
 board::board(const std::string& fen) {
-    boarditer i;
-    for(char c: fen){
-        if(c != '/'){
-            if(c >= '1' && c <= '9')
-                i += c - '0';
-            else{
-                b[i.idx] = piece(c);
-                ++i;
-            }
-        }
-        if(i.done)
-            break;
-    }
+	boarditer i;
+	for(char c: fen){
+		if(c != '/'){
+			if(c >= '1' && c <= '9')
+				i += c - '0';
+			else{
+				b[i.idx] = piece(c);
+				++i;
+			}
+		}
+		if(i.done)
+			break;
+	}
 }
