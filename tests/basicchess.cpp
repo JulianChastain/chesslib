@@ -1,8 +1,7 @@
 #include <iostream>
 #include <string>
-//
 // Created by Julian Chastain on 12/24/2020.
-//
+// basicchess.cpp
 #include "../src/includes/structures.h"
 
 int main(){
@@ -11,9 +10,9 @@ int main(){
     std::string m;
     while(true){
         std::cin >> m;
-	if(m == "q" || std::cin.eof())
+	if(m == "qqqq" || std::cin.eof())
 	  break;
-	else if (m == "p")
+	else if (m == "pppp")
 	  std::cout << b.str();
 	else
 	    b.basic_move(move(m));
