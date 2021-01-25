@@ -1,0 +1,57 @@
+@startuml
+skinparam classAttributeIconSize 0
+class piece {
+    +int [0,7] value
+    +piece(char)
+    +char sym()
+    +piece pop()
+    +bool empty()
+    +bool equalTo(char)
+    +bool equalTo(piece)
+}
+
+class square{
+    +int [0,63] idx
+    +square(string)
+    +int compare(square)
+}
+
+class move{
+    +square origin
+    +square destination
+    +piece promotion
+    +move(string)
+    +bool equalTo(move)
+}
+
+class board {
+    +piece [64] b
+    +string str()
+    +void basic_move(move)
+}
+
+class game {
+    +move [0+] moves
+    +board start
+    +game(string,board)
+    +positionAfter(int)
+}
+
+class gameCombinator {
+    +gameCombinator()
+    +void process(game)
+    +move* root
+    +string openingRepertoire()
+}
+
+class chessEx {
+    +chessEx(string)
+    +bool legal(board, move)
+    +bool match(board)
+    +move* search(board)
+    +bool match(move)
+}
+
+@enduml
+
+
