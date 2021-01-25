@@ -1,0 +1,4 @@
+/.idea/
+/.vscode/
+/src/cmake-build-debug/
+/tests/tester.el
