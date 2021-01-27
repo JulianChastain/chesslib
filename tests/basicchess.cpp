@@ -5,7 +5,7 @@
 // Created by Julian Chastain on 12/24/2020.
 //
 #include <cassert>
-#include "../src/structures.h"
+#include "../src/cli/structures.h"
 
 const std::vector<std::string> basic_moves = {"e2e4", "f1d3", "g1h3", "e1g1", "e4e5", "f7f5", "e5f6"};
 const std::string pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";

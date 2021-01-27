@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include "../src/structures.h"
+#include "../src/cli/structures.h"
 
 void board_test_suite(){
     std::string pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
