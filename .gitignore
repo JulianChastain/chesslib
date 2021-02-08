@@ -3,3 +3,6 @@
 /src/cmake-build-debug/
 /tests/tester.el
 /src/gui/
+src/lisp/#board.lisp#
+src/lisp/.#board.lisp
+src/lisp/board.lisp~
